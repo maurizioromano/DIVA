@@ -1,6 +1,16 @@
 # MALLOW SIMULATIONS
 
 source("Final_Consensus_SEARCH_updated.R")
+
+
+#Load the computed results
+#load("mallow2.rdata")
+
+#...or compute them by yourself!
+
+
+
+
 fix_preference_approval = function(x){
   xa = x[((length(x)/2)+1):length(x)]
   xr = x[1:(length(x)/2)]
@@ -75,7 +85,6 @@ njudges <- 2000
 Sigma=matrix(0,nrow=nitems,ncol=nitems)
 diag(Sigma)=1
 set.seed(i)
-#mu <- seq(0,1,by=0.05)
 
 mu <- 10:1/3
 
@@ -583,6 +592,3 @@ dt <- round(cbind(Final_10_items_new[,1],
 colnames(dt) <- c(10,10,20,20,50,50)
 
 
-save.image("mallow2.rdata")
-
-#load("mallow2.rdata")

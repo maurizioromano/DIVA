@@ -7,6 +7,11 @@
 ################################################################################
 source("Final_Consensus_SEARCH_updated.r")
 
+#Load the computed results
+# load("Final_results_ties.rdata")
+
+#...or compute them by yourself!
+
 iterazioni <- 100
 
 Final_results <- matrix(NA, nrow= 9, ncol= 11)
@@ -46,7 +51,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
@@ -78,12 +82,6 @@ for (i in 1:iterazioni) {
   results_100_100[i,1] <- FC$D_lambda
   results_100_100[i,2]  <- FC$Elapsed
   results_100_100[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
-  # results_100_100[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
-  # results_100_100[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -128,7 +126,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
@@ -156,27 +153,10 @@ for (i in 1:iterazioni) {
   TF_100_200[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "decor")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
-  
-  # rank_mu <- rank(mu,ties.method="min")
-  # approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
-  # dgp <- data.frame(matrix(c(rank_mu,approv_mu),nrow=1))
-  #
   results_100_200[i,1] <- FC$D_lambda
   results_100_200[i,2]  <- FC$Elapsed
   results_100_200[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
-  # results_100_200[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
-  # results_100_200[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
-  
+
   
   print(i)
 }
@@ -194,7 +174,6 @@ Final_results[2,] <- c(mean(results_100_200[,2]),0,0,sum(TF_100_200),mean(result
                         100- round(sum(results_100_200[which(TF_100_200),1] == results_100_200[which(TF_100_200),3])),
                         round(sum(results_100_200[which(TF_100_200),1] == results_100_200[which(TF_100_200),3])),
                         0)
-# save(file="Final_results.rdata",Final_results)
 
 
 ###############################################################################################################
@@ -222,7 +201,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
@@ -250,26 +228,10 @@ for (i in 1:iterazioni) {
   TF_100_300[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "decor")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
-  
-  # rank_mu <- rank(mu,ties.method="min")
-  # approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
-  # dgp <- data.frame(matrix(c(rank_mu,approv_mu),nrow=1))
   #
   results_100_300[i,1] <- FC$D_lambda
   results_100_300[i,2]  <- FC$Elapsed
   results_100_300[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
-  # results_100_300[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
-  # results_100_300[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -314,7 +276,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -343,9 +304,6 @@ for (i in 1:iterazioni) {
   FC <-   Final_Consensus(X,algorithm = "quick")
   
   
-  
-  #FC_search <- Final_Consensus(X,search = T)
-  
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
   dgp <- data.frame(matrix(c(rank_mu,approv_mu),nrow=1))
@@ -356,9 +314,6 @@ for (i in 1:iterazioni) {
   results_20_20[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
   results_20_20[i,5]  <- Pref_dist2(dgp,naive_consensus)
   
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -394,7 +349,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -423,10 +377,6 @@ for (i in 1:iterazioni) {
   TF_20_40[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  
-  #FC_search <- Final_Consensus(X,search = T)
   
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
@@ -437,10 +387,6 @@ for (i in 1:iterazioni) {
   results_20_40[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
   results_20_40[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
   results_20_40[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -483,7 +429,6 @@ for (i in 1:iterazioni) {
   
   ties <- rpois(nrow(true_conf),nitems*.40)
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -512,10 +457,6 @@ for (i in 1:iterazioni) {
   TF_20_60[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  
-  #FC_search <- Final_Consensus(X,search = T)
   
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
@@ -526,11 +467,6 @@ for (i in 1:iterazioni) {
   results_20_60[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
   results_20_60[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
   results_20_60[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
-  
   
   print(i)
 }
@@ -572,7 +508,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -599,12 +534,6 @@ for (i in 1:iterazioni) {
   TF_50_50[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "decor")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
   
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
@@ -615,10 +544,6 @@ for (i in 1:iterazioni) {
   results_50_50[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
   results_50_50[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
   results_50_50[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -638,7 +563,6 @@ Final_results[7,] <- c(median(results_50_50[,2]),0,0,sum(TF_50_50),mean(results_
                        round(sum(results_50_50[which(TF_50_50),1] == results_50_50[which(TF_50_50),3])),
                        0)
 
-# save(file="Final_results.rdata",Final_results)
 
 ###############################################################################################################
 #######################################à
@@ -664,7 +588,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -691,26 +614,10 @@ for (i in 1:iterazioni) {
   TF_50_100[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "decor")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
-  
-  # rank_mu <- rank(mu,ties.method="min")
-  # approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
-  # dgp <- data.frame(matrix(c(rank_mu,approv_mu),nrow=1))
   
   results_50_100[i,1] <- FC$D_lambda
   results_50_100[i,2]  <- FC$Elapsed
   results_50_100[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
-  #results_50_100[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
-  #results_50_100[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -730,7 +637,6 @@ Final_results[8,] <- c(median(results_50_100[,2]),0,0,sum(TF_50_100),mean(result
                        round(sum(results_50_100[which(TF_50_100),1] == results_50_100[which(TF_50_100),3])),
                        0)
 
-# save(file="Final_results.rdata",Final_results)
 ###############################################################################################################
 #######################################à
 
@@ -755,7 +661,6 @@ for (i in 1:iterazioni) {
   ties <- rpois(nrow(true_conf),nitems*.40)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -782,12 +687,6 @@ for (i in 1:iterazioni) {
   TF_50_150[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "decor")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
   
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
@@ -798,10 +697,6 @@ for (i in 1:iterazioni) {
   results_50_150[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
   results_50_150[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
   results_50_150[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -821,9 +716,6 @@ Final_results[9,] <- c(median(results_50_150[,2]),0,0,sum(TF_50_150),mean(result
                        round(sum(results_50_150[which(TF_50_150),1] == results_50_150[which(TF_50_150),3])),
                        0)
 
-
-# save(file="Final_results_ties.rdata",Final_results)
-# save.image(file="Final_results_all_ties.rdata")
 
 
 

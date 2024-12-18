@@ -2,6 +2,12 @@
 
 source("Final_Consensus_SEARCH_updated.r")
 
+#Load the computed results
+# load("Final_results.rdata")
+
+#...or compute them by yourself!
+
+
 iterazioni <- 100
 
 Final_results <- matrix(NA, nrow= 9, ncol= 11)
@@ -42,7 +48,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
@@ -116,7 +121,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
@@ -193,7 +197,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
@@ -268,7 +271,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -295,10 +297,6 @@ for (i in 1:iterazioni) {
   
   FC <-   Final_Consensus(X,algorithm = "quick")
   
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
-  
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
   dgp <- data.frame(matrix(c(rank_mu,approv_mu),nrow=1))
@@ -308,10 +306,6 @@ for (i in 1:iterazioni) {
   results_20_20[i,3]  <- mean(Pref_dist2(as.matrix(X),as.matrix(naive_consensus)))
   results_20_20[i,4] <-  min(Pref_dist2(dgp,FC$Consensus))
   results_20_20[i,5]  <- Pref_dist2(dgp,naive_consensus)
-  
-  # Pref_dist2(dgp,FC$Consensus)
-  # Pref_dist2(dgp,naive_consensus)
-  # Pref_dist2(dgp,FC_search$Consensus)
   
   
   print(i)
@@ -346,7 +340,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -426,7 +419,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -507,7 +499,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -533,12 +524,6 @@ for (i in 1:iterazioni) {
   TF_50_50[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "quick")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
   
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
@@ -592,7 +577,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -666,7 +650,6 @@ for (i in 1:iterazioni) {
   true_conf <- MASS::mvrnorm(n=njudges,mu,Sigma=Sigma)
   
   rank <- t(apply(true_conf,1,rank,ties.method="min"))
-  #approv <- rpois(nrow(rank),round(sqrt(nitems),0))
   approv <-round(runif(njudges,min=0,max=nitems),0)
   approv_m <- matrix(nrow=nrow(rank),ncol=ncol(rank))
   
@@ -692,12 +675,6 @@ for (i in 1:iterazioni) {
   TF_50_150[i] <- controlla(upperTriangle(score_r(naive_r)), upperTriangle(score_a(naive_a)))
   
   FC <- Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "fast")
-  # Final_Consensus(X,algorithm = "quick")
-  # Final_Consensus(X,algorithm = "quick")
-  
-  
-  #FC_search <- Final_Consensus(X,search = T)
   
   rank_mu <- rank(mu,ties.method="min")
   approv_mu <-  ifelse(rank_mu<=round(sqrt(nitems),0),1,0)
@@ -729,8 +706,7 @@ Final_results[9,] <- c(median(results_50_150[,2]),0,0,sum(TF_50_150),mean(result
                        0)
 
 
-# save(file="Final_results.rdata",Final_results)
-# save.image(file="Final_results_all.rdata")
+
 
 
 
